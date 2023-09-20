@@ -1,4 +1,3 @@
-local _, iron = pcall(require, "iron.core")
 local commenter = require "notebook-navigator.commenters"
 local repl = require "notebook-navigator.repls"
 
