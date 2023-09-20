@@ -58,7 +58,7 @@ M.run_cell = function(cell_marker, repl_args)
     return nil
   end
 
-  repl(cell_object.from.line - 1, cell_object.to.line, repl_args)
+  repl(cell_object.from.line, cell_object.to.line, repl_args)
 end
 
 M.run_and_move = function(cell_marker, repl_args)

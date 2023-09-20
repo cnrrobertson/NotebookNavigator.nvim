@@ -2,7 +2,7 @@ local repls = {}
 
 -- iron.nvim
 repls.iron = function(start_line, end_line, repl_args)
-  local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, 0)
+  local lines = vim.api.nvim_buf_get_lines(0, start_line-1, end_line, 0)
   require("iron.core").send(nil, lines)
 end
 
@@ -15,7 +15,7 @@ repls.toggleterm = function(start_line, end_line, repl_args)
     trim_spaces = repl_args.trim_spaces or true
   end
   local current_window = vim.api.nvim_get_current_win()
-  local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, 0)
+  local lines = vim.api.nvim_buf_get_lines(0, start_line-1, end_line, 0)
 
   if not lines or not next(lines) then return end
 
