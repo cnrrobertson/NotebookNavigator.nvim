@@ -1,5 +1,6 @@
 local _, iron = pcall(require, "iron.core")
 local commenter = require "notebook-navigator.commenters"
+local repl = require "notebook-navigator.repls"
 
 local M = {}
 
@@ -48,7 +49,8 @@ M.move_cell = function(dir, cell_marker)
   return result
 end
 
-M.run_cell = function(cell_marker)
+M.run_cell = function(cell_marker, repl_args)
+  repl_args = repl_args or nil
   local cell_object = M.miniai_spec("i", cell_marker)
 
   -- protect ourselves against the case with no actual lines of code
@@ -57,13 +59,11 @@ M.run_cell = function(cell_marker)
     return nil
   end
 
-  local lines = vim.api.nvim_buf_get_lines(0, cell_object.from.line - 1, cell_object.to.line, 0)
-
-  iron.send(nil, lines)
+  repl(cell_object.from.line - 1, cell_object.to.line, repl_args)
 end
 
-M.run_and_move = function(cell_marker)
-  M.run_cell(cell_marker)
+M.run_and_move = function(cell_marker, repl_args)
+  M.run_cell(cell_marker, repl_args)
   local is_last_cell = M.move_cell("d", cell_marker) == "last"
 
   -- insert a new cell to replicate the behaviour of jupyter notebooks
