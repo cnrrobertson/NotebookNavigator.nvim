@@ -104,6 +104,7 @@ Any options that are not specified when calling `setup` will take on their defau
     julia = "# %%",
     fennel = ";; %%",
     r = "# %%",
+    matlab = "% %%",
   },
   -- If not `nil` the keymap defined in the string will activate the hydra head.
   -- If you don't want to use hydra you don't need to install it either.
