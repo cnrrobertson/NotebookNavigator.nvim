@@ -1,5 +1,5 @@
 local commenter = require "notebook-navigator.commenters"
-local repl = require "notebook-navigator.repls"
+local get_repl = require "notebook-navigator.repls"
 
 local M = {}
 
@@ -48,8 +48,9 @@ M.move_cell = function(dir, cell_marker)
   return result
 end
 
-M.run_cell = function(cell_marker, repl_args)
+M.run_cell = function(cell_marker, repl_provider, repl_args)
   repl_args = repl_args or nil
+  repl_provider = repl_provider or "auto"
   local cell_object = M.miniai_spec("i", cell_marker)
 
   -- protect ourselves against the case with no actual lines of code
@@ -58,11 +59,12 @@ M.run_cell = function(cell_marker, repl_args)
     return nil
   end
 
+  local repl = get_repl(repl_provider)
   repl(cell_object.from.line, cell_object.to.line, repl_args)
 end
 
-M.run_and_move = function(cell_marker, repl_args)
-  M.run_cell(cell_marker, repl_args)
+M.run_and_move = function(cell_marker, repl_provider, repl_args)
+  M.run_cell(cell_marker, repl_provider, repl_args)
   local is_last_cell = M.move_cell("d", cell_marker) == "last"
 
   -- insert a new cell to replicate the behaviour of jupyter notebooks
