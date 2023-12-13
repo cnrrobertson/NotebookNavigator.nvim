@@ -27,6 +27,7 @@ local find_supported_repls = function()
     { name = "iron", module = "iron" },
     { name = "toggleterm", module = "toggleterm" },
     { name = "molten", module = "molten.health" },
+    { name = "nuiterm", module = "nuiterm" },
   }
 
   local available_repls = {}

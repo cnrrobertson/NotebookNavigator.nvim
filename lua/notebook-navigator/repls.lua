@@ -59,6 +59,21 @@ repls.molten = function(start_line, end_line, repl_args, cell_marker)
   return true
 end
 
+-- nuiterm
+repls.nuiterm = function(start_line, end_line, repl_args)
+  local type = nil
+  local num = nil
+  local setup_cmd = nil
+  if repl_args then
+    type = repl_args.type
+    num = repl_args.num
+    setup_cmd = repl_args.setup_cmd
+  end
+  require("nuiterm").send_lines(start_line, end_line, type, num, setup_cmd)
+
+  return true
+end
+
 -- no repl
 repls.no_repl = function(_) end
 
