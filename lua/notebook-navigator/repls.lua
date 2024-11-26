@@ -74,6 +74,17 @@ repls.nuiterm = function(start_line, end_line, repl_args)
   return true
 end
 
+-- jupyterm
+repls.jupyterm = function(start_line, end_line, repl_args)
+  local kernel = nil
+  if repl_args then
+    kernel = repl_args.kernel
+  end
+  require("jupyterm").send_lines(kernel, start_line, end_line)
+
+  return true
+end
+
 -- no repl
 repls.no_repl = function(_) end
 
