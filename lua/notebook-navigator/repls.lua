@@ -80,7 +80,7 @@ repls.jupyterm = function(start_line, end_line, repl_args)
   if repl_args then
     kernel = repl_args.kernel
   end
-  require("jupyterm").send_lines(kernel, start_line, end_line)
+  require("jupyterm.execute").send_lines(kernel, start_line, end_line)
 
   return true
 end
